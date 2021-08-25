@@ -1,14 +1,48 @@
 #!/usr/bin/env python3
 
 import sys
+import subprocess
 
-if( len(sys.argv) < 2):
+
+#Executes any number of bash commands, one on each line
+def bash_execute(commands):
+    commands = commands.split('\n')
+    last_output = ''
+    for command in commands:
+        last_output = subprocess.run(command.split(' '), stdout=subprocess.PIPE, text=True).stdout
+    return last_output
+
+
+
+
+
+
+if( len(sys.argv) < 2 ):
     raise Exception("Please input base directory.")
-elif( len(sys.argv) < 3):
+elif( len(sys.argv) < 3 ):
     raise Exception("Please input directory to be compared with.")
 
 
 base_dir = sys.argv[1]
 comp_dir = sys.argv[2]
 
-print(base_dir, comp_dir)
+base_dir_list = bash_execute(f'ls -a {base_dir}')
+base_dir_list = base_dir_list.split('\n')[2:-1]
+
+comp_dir_list = bash_execute(f'ls -a {comp_dir}')
+comp_dir_list = comp_dir_list.split('\n')[2:-1]
+
+
+#When basefile has an additional file
+# for file in base_dir_list:
+#     if file not in comp_dir_list:
+#         bash_execute(f"rm {base_dir}/{file}")
+#         base_dir_list.remove(file)
+
+#when compfile has an additional file
+
+
+#When all FILES are same
+for file in base_dir_list:
+    diff = bash_execute(f"diff {base_dir}/{file} {comp_dir}/{file}")
+    
