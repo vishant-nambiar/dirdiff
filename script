@@ -1,0 +1,14 @@
+#!/usr/bin/env python3
+
+import sys
+
+if( len(sys.argv) < 2):
+    raise Exception("Please input base directory.")
+elif( len(sys.argv) < 3):
+    raise Exception("Please input directory to be compared with.")
+
+
+base_dir = sys.argv[1]
+comp_dir = sys.argv[2]
+
+print(base_dir, comp_dir)
