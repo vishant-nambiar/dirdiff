@@ -2,6 +2,7 @@
 
 import sys
 import subprocess
+import json
 
 
 #Executes any number of bash commands, one on each line
@@ -53,7 +54,6 @@ for file in base_dir_list:
     file_diff = bash_execute(f"diff {base_dir}/{file} {comp_dir}/{file}")
     diffs_similar_files.append([file, file_diff])
 
-# print(diffs_similar_files)
-# #formatting everything into a diff dictionary
-# diff = {"files_to_add": files_to_add, "files_to_delete": files_to_delete, "file_diffs": diffs_similar_files}
-# print(diff)
+
+#formatting everything into a diff dictionary
+diff = {"files_to_add": files_to_add, "files_to_delete": files_to_delete, "file_diffs": diffs_similar_files}
