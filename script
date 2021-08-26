@@ -33,7 +33,8 @@ comp_dir_list = bash_execute(f'ls -a {comp_dir}')
 comp_dir_list = comp_dir_list.split('\n')[2:-1]
 
 files_to_delete = []
-files_to_add = []
+files_to_add = []  #format: [[fiilename, file content], ...]
+diffs_similar_files = [] #format: [[fiilename, diff info], ...]
 
 #When basefile has an additional file
 for file in base_dir_list:
@@ -47,7 +48,12 @@ for file in comp_dir_list:
         file_content = bash_execute(f"cat {comp_dir}/{file}")
         files_to_add.append([file, file_content])
 
-#When all FILES are same
+#list diffs of the files which have same names
 for file in base_dir_list:
-    diff = bash_execute(f"diff {base_dir}/{file} {comp_dir}/{file}")
-    
+    file_diff = bash_execute(f"diff {base_dir}/{file} {comp_dir}/{file}")
+    diffs_similar_files.append([file, file_diff])
+
+# print(diffs_similar_files)
+# #formatting everything into a diff dictionary
+# diff = {"files_to_add": files_to_add, "files_to_delete": files_to_delete, "file_diffs": diffs_similar_files}
+# print(diff)
