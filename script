@@ -21,10 +21,10 @@ comp_dir = sys.argv[2]
 
 file_diff_object = generate_file_diffs( base_dir, comp_dir )
 
-
-
 base_dir_dirs = generate_dir_list(base_dir)
 comp_dir_dirs = generate_dir_list(comp_dir)
+
+
 
 
 
