@@ -23,16 +23,9 @@ file_diff_object = generate_file_diffs( base_dir, comp_dir )
 
 
 
+base_dir_dirs = generate_dir_list(base_dir)
+comp_dir_dirs = generate_dir_list(comp_dir)
 
-
-def generate_dir_diffs( base_dir, comp_dir ):
-    base_dir_file_list = bash_execute(f'ls -pa {base_dir}/ | grep -v /')
-    base_dir_file_list = base_dir_file_list.split('\n')[2:-1]
-
-    comp_dir_file_list = bash_execute(f'ls -pa {comp_dir}/ | grep -v /')
-    comp_dir_file_list = comp_dir_file_list.split('\n')[2:-1]
-
-    file_diff_object = generate_file_diffs( base_dir_file_list, comp_dir_file_list )
 
 
 
