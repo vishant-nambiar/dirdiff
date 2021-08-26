@@ -12,35 +12,47 @@ def bash_execute(commands):
 
 
 
+def generate_file_list(dir):
+    dir_data = bash_execute(f'ls -pa {dir}/').split('\n')[:-1]
+    dir_list = []
+    for name in dir_data:
+        if not name[-1] == '/':
+            dir_list.append(name)
+    return dir_list
+
+
+
+
+
+
+
 def generate_file_diffs( base_dir, comp_dir ):
     
-    base_dir_data = bash_execute(f'ls -pa {base_dir}/').split('\n')[:-1]
-    base_dir_list = []
-    for name in base_dir_data:
-        if not name[-1] == '/':
-            base_dir_list.append(name)
+    base_dir_list = generate_file_list(base_dir)
+    comp_dir_list = generate_file_list(comp_dir)
 
-    comp_dir_data = bash_execute(f'ls -pa {comp_dir}/').split('\n')[:-1]
-    comp_dir_list = []
-    for name in comp_dir_data:
-        if not name[-1] == '/':
-            comp_dir_list.append(name)
+    
 
     files_to_delete = []
     files_to_add = []  #format: [[fiilename, file content], ...]
     diffs_similar_files = [] #format: [[fiilename, diff info], ...]
 
+    
     #When basefile has an additional file
     for file in base_dir_list:
         if file not in comp_dir_list:
             files_to_delete.append(file)
-            base_dir_list.remove(file)
+    for file in files_to_delete:
+        base_dir_list.remove(file)
 
     #when compfile has an additional file
     for file in comp_dir_list:
         if file not in base_dir_list:
             file_content = bash_execute(f"cat {comp_dir}/{file}")
             files_to_add.append([file, file_content])
+    for file, data in files_to_add:
+        comp_dir_list.remove(file)
+
 
     #list diffs of the files which have same names
     for file in base_dir_list:
@@ -64,3 +76,10 @@ def generate_dir_list(dir):
         if name[-1] == '/':
             dir_list.append(name[:-1])
     return dir_list
+
+
+
+
+
+#generates instructions to build dir
+# def dir_build_instructions(dir):
