@@ -25,7 +25,7 @@ base_dir_dirs = generate_dir_list(base_dir)
 comp_dir_dirs = generate_dir_list(comp_dir)
 
 dirs_to_delete = []
-dirs_to_build = []
+dirs_to_build = [] #format: [ [dir name, build object array ]
 
 #list dirs to delete
 for dir in base_dir_dirs:
@@ -34,13 +34,16 @@ for dir in base_dir_dirs:
 
 for dir in dirs_to_delete:
     base_dir_dirs.remove(dir)
-
+print(base_dir_dirs)
 #list dirs to build along with build instructions
 for dir in comp_dir_dirs:
     if dir not in base_dir_dirs:
         build_instructions = dir_build_instructions(f"{comp_dir}/{dir}")
-        
+        dirs_to_build.append([dir, build_instructions])
 
+for dir_array in dirs_to_build:
+    comp_dir_dirs.remove(dir_array[0])
+print(comp_dir_dirs)
 
 
 
