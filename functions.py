@@ -60,8 +60,8 @@ def generate_file_diffs( base_dir, comp_dir ):
         if file not in base_dir_list:
             file_content = bash_execute(f"cat {comp_dir}/{file}")
             files_to_add.append([file, file_content])
-    for file, data in files_to_add:
-        comp_dir_list.remove(file)
+    for file_array in files_to_add:
+        comp_dir_list.remove(file_array[0])
 
 
     #list diffs of the files which have same names

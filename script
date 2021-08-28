@@ -34,7 +34,7 @@ for dir in base_dir_dirs:
 
 for dir in dirs_to_delete:
     base_dir_dirs.remove(dir)
-print(base_dir_dirs)
+
 #list dirs to build along with build instructions
 for dir in comp_dir_dirs:
     if dir not in base_dir_dirs:
@@ -43,7 +43,6 @@ for dir in comp_dir_dirs:
 
 for dir_array in dirs_to_build:
     comp_dir_dirs.remove(dir_array[0])
-print(comp_dir_dirs)
 
 
 
