@@ -1,0 +1,6 @@
+diff -drupN a/file3 b/file3
+--- a/file3	2021-08-28 22:56:42.571423829 +0530
++++ b/file3	2021-08-28 22:22:44.283658645 +0530
+@@ -1 +0,0 @@
+-some cool added content difference
+\ No newline at end of file
