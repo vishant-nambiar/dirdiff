@@ -84,17 +84,23 @@ def generate_file_diffs( base_dir, comp_dir ):
 
 
 
-#generates instructions to build dir
+#generates instructions to build dir from scratch
+#returns an array of build objects
 def dir_build_instructions(dir):
     dir_file_list = generate_file_list(dir)
     dir_dir_list = generate_dir_list(dir)
 
-    file_store = []
-    dir_store = []
+    store = []
     
     for file in dir_file_list:
         name = file
         category = "file"
         content = bash_execute(f"cat {dir}/{file}")
-        file_store.append( {"name": name, "category": category, "content": content} )
-    print(file_store[1]['content'])
+        store.append( {"name": name, "category": category, "content": content} )
+    
+    for inner_dir in dir_dir_list:
+        name = inner_dir
+        category = "directory"
+        content = dir_build_instructions(f"{dir}/{inner_dir}")
+        store.append( {"name": name, "category": category, "content": content} )
+    return store

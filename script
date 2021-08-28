@@ -39,6 +39,7 @@ for dir in dirs_to_delete:
 for dir in comp_dir_dirs:
     if dir not in base_dir_dirs:
         build_instructions = dir_build_instructions(f"{comp_dir}/{dir}")
+        
 
 
 
