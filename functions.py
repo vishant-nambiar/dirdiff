@@ -11,7 +11,7 @@ def bash_execute(commands):
 
 
 
-
+#generates array of files
 def generate_file_list(dir):
     dir_data = bash_execute(f'ls -pa {dir}/').split('\n')[:-1]
     dir_list = []
@@ -22,6 +22,16 @@ def generate_file_list(dir):
 
 
 
+
+
+#generates array of directories
+def generate_dir_list(dir):
+    data = bash_execute(f'ls -pa {dir}/').split('\n')[2:-1]
+    dir_list = []
+    for name in data:
+        if name[-1] == '/':
+            dir_list.append(name[:-1])
+    return dir_list
 
 
 
@@ -68,18 +78,13 @@ def generate_file_diffs( base_dir, comp_dir ):
 
 
 
-#generates array of directories
-def generate_dir_list(dir):
-    data = bash_execute(f'ls -pa {dir}/').split('\n')[2:-1]
-    dir_list = []
-    for name in data:
-        if name[-1] == '/':
-            dir_list.append(name[:-1])
-    return dir_list
+
 
 
 
 
 
 #generates instructions to build dir
-# def dir_build_instructions(dir):
+def dir_build_instructions(dir):
+    dir_file_list = generate_file_list(dir)
+    dir_dir_list = generate_dir_list(dir)
