@@ -44,7 +44,7 @@ def generate_file_diffs( base_dir, comp_dir ):
     
 
     files_to_delete = []
-    files_to_add = []  #format: [[fiilename, file content], ...]
+    files_to_add = []  #format: array of build objects
     diffs_similar_files = [] #format: [[fiilename, diff info], ...]
 
     
@@ -59,9 +59,9 @@ def generate_file_diffs( base_dir, comp_dir ):
     for file in comp_dir_list:
         if file not in base_dir_list:
             file_content = bash_execute(f"cat {comp_dir}/{file}")
-            files_to_add.append([file, file_content])
-    for file_array in files_to_add:
-        comp_dir_list.remove(file_array[0])
+            files_to_add.append( {"name": file, "category": "file", "content": file_content})
+    for build_objects in files_to_add:
+        comp_dir_list.remove(build_objects["name"])
 
 
     #list diffs of the files which have same names
