@@ -47,3 +47,9 @@ if sys.argv[1] == "patch":
     elif len(sys.argv) < 4:
         raise Exception("Please input patch file.")
     
+
+    #creating dir diff object
+    patchfile = sys.argv[3]
+    patchfile_stream = open(patchfile, "r")
+    dir_diff_object = json.load(patchfile_stream)
+    patchfile_stream.close()
