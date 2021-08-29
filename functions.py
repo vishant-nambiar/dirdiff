@@ -10,6 +10,10 @@ def bash_execute(commands):
 
 
 
+#Diffing section
+
+
+
 
 #generates array of files
 def generate_file_list(dir):
@@ -126,7 +130,8 @@ def generate_dir_diffs(base_dir, comp_dir):
 
     dirs_to_delete = []
     dirs_to_build = [] #format:  array of build objects
-    same_dir_diffs = [] #format: {file diff object, dir diff object}
+    same_dir_diffs = [] #format: [ [dir, dir_diff_object] ]
+
     #list dirs in base dir not in comp dir
     for dir in base_dir_dirs:
         if dir not in comp_dir_dirs:
@@ -164,11 +169,7 @@ def generate_dir_diffs(base_dir, comp_dir):
 
 
 
-
-
-
-
-
+#Patching section
 
 
 
@@ -190,3 +191,42 @@ def build(dir, build_objects):
             name = build_object["name"]
             bash_execute(f"mkdir {dir}/{name}")
             build( f"{dir}/{name}", build_object["content"] )
+
+
+
+
+
+
+
+
+
+
+
+def dir_patch(dir, dir_diff_object):
+        
+        file_object = dir_diff_object["files"]
+        
+        for file in file_object["files_to_delete"]:
+            bash_execute(f"rm {dir}/{file}")
+        
+        build(dir, file_object["files_to_add"])
+
+        bash_execute(f"touch {dir}/temppatch8132")
+        for file, diff in file_object["file_diffs"]:
+            temp_patch_file = open(f"{dir}/temppatch8132", "w")
+            temp_patch_file.write(diff)
+            temp_patch_file.close()
+            bash_execute(f"patch {dir}/{file} {dir}/temppatch8132")
+        bash_execute(f"rm {dir}/temppatch8132")
+
+
+        
+        dir_object = dir_diff_object["dirs"]
+
+        for directory in dir_object["dirs_to_delete"]:
+            bash_execute(f"rm -r {dir}/{directory}")
+        
+        build( dir, dir_object["dirs_to_build"] )
+
+        for directory, directory_diff_object in dir_object["dir_diffs"]:
+            dir_patch( f"{dir}/{directory}", directory_diff_object )

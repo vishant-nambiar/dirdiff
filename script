@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 
 import sys
-import subprocess
 import json
-import os
 from functions import *
 
 
@@ -40,7 +38,7 @@ if sys.argv[1] == "diff":
 
 
 
-if sys.argv[1] == "patch":
+elif sys.argv[1] == "patch":
     
     #patching
     if len(sys.argv) < 3:
@@ -55,35 +53,14 @@ if sys.argv[1] == "patch":
     dir_diff_object = json.load(patchfile_stream)
     patchfile_stream.close()
 
-
-    def dir_patch(dir, dir_diff_object):
-        
-        file_object = dir_diff_object["files"]
-        
-        for file in file_object["files_to_delete"]:
-            bash_execute(f"rm {dir}/{file}")
-        
-        build(dir, file_object["files_to_add"])
-
-        bash_execute(f"touch {dir}/temppatch8132")
-        for file, diff in file_object["file_diffs"]:
-            temp_patch_file = open(f"{dir}/temppatch8132", "w")
-            temp_patch_file.write(diff)
-            temp_patch_file.close()
-            bash_execute(f"patch {dir}/{file} {dir}/temppatch8132")
-        bash_execute(f"rm {dir}/temppatch8132")
-
-
-        
-        dir_object = dir_diff_object["dirs"]
-
-        for directory in dir_object["dirs_to_delete"]:
-            bash_execute(f"rm -r {dir}/{directory}")
-        
-        build( dir, dir_object["dirs_to_build"] )
-
-        for directory, directory_diff_object in dir_object["dir_diffs"]:
-            dir_patch( f"{dir}/{directory}", directory_diff_object )
-
         
     dir_patch(sys.argv[2], dir_diff_object)
+
+
+
+
+
+
+
+else:
+    raise Exception("Command not identified.")
