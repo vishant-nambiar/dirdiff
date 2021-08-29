@@ -96,5 +96,13 @@ def generate_dir_diffs(base_dir, comp_dir):
 
 base_dir = sys.argv[1]
 comp_dir = sys.argv[2]
+
 dir_diff_object = generate_dir_diffs( base_dir, comp_dir )
-print(dir_diff_object)
+
+if len(sys.argv) > 3:
+    filepath = sys.argv[3]
+    file = open(filepath, "w")
+    json.dump(dir_diff_object, file)
+    file.close()
+else:
+    print(dir_diff_object)
