@@ -151,7 +151,7 @@ def generate_dir_diffs(base_dir, comp_dir):
         base_dir_dir = f"{base_dir}/{dir}"
         comp_dir_dir = f"{comp_dir}/{dir}"
         dir_diff_object = generate_dir_diffs( base_dir_dir, comp_dir_dir)
-        same_dir_diffs.append(dir_diff_object)
+        same_dir_diffs.append( [dir, dir_diff_object] )
 
     dir_diff_object = {"dirs_to_build": dirs_to_build, "dirs_to_delete": dirs_to_delete, "dir_diffs": same_dir_diffs}
 
