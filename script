@@ -8,55 +8,29 @@ from functions import *
 
 
 
-#Generating diff for two directories
-
-if( len(sys.argv) < 2 ):
-    raise Exception("Please input base directory.")
-elif( len(sys.argv) < 3 ):
-    raise Exception("Please input directory to be compared with.")
-
-
-
-
-def generate_dir_diffs(base_dir, comp_dir):
-
-    file_diff_object = generate_file_diffs( base_dir, comp_dir )
-
-    base_dir_dirs = generate_dir_list(base_dir)
-    comp_dir_dirs = generate_dir_list(comp_dir)
-
-    dirs_to_delete = []
-    dirs_to_build = [] #format:  array of build objects
-    same_dir_diffs = [] #format: {file diff object, dir diff object}
-    #list dirs in base dir not in comp dir
-    for dir in base_dir_dirs:
-        if dir not in comp_dir_dirs:
-            dirs_to_delete.append(dir)
-
-    for dir in dirs_to_delete:
-        base_dir_dirs.remove(dir)
-
-    #list dirs to build along with build instructions for dirs in comp dir not in base dir
-    for dir in comp_dir_dirs:
-        if dir not in base_dir_dirs:
-            build_instructions = dir_build_instructions(f"{comp_dir}/{dir}")
-            build_object = {"name": dir, "category": "directory", "content": build_instructions}
-            dirs_to_build.append(build_object)
-
-    for build_object in dirs_to_build:
-        comp_dir_dirs.remove(build_object["name"])
+if sys.argv[1] == "diff":
+    
+    #Generating diff for two directories
+    if( len(sys.argv) < 3 ):
+        raise Exception("Please input base directory.")
+    elif( len(sys.argv) < 4 ):
+        raise Exception("Please input directory to be compared with.")
 
 
-    #diffs of dirs that are the same in both dirs
-    for dir in base_dir_dirs:
-        base_dir_dir = f"{base_dir}/{dir}"
-        comp_dir_dir = f"{comp_dir}/{dir}"
-        dir_diff_object = generate_dir_diffs( base_dir_dir, comp_dir_dir)
-        same_dir_diffs.append(dir_diff_object)
+    base_dir = sys.argv[2]
+    comp_dir = sys.argv[3]
 
-    dir_diff_object = {"dirs_to_build": dirs_to_build, "dirs_to_delete": dirs_to_delete, "dir_diffs": same_dir_diffs}
 
-    return {"files": file_diff_object, "dirs": dir_diff_object}
+    #diffing
+    dir_diff_object = generate_dir_diffs( base_dir, comp_dir )
+
+    if len(sys.argv) > 4:
+        filepath = sys.argv[4]
+        file = open(filepath, "w")
+        json.dump(dir_diff_object, file)
+        file.close()
+    else:
+        print(dir_diff_object)
 
 
 
@@ -66,43 +40,4 @@ def generate_dir_diffs(base_dir, comp_dir):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-base_dir = sys.argv[1]
-comp_dir = sys.argv[2]
-
-dir_diff_object = generate_dir_diffs( base_dir, comp_dir )
-
-if len(sys.argv) > 3:
-    filepath = sys.argv[3]
-    file = open(filepath, "w")
-    json.dump(dir_diff_object, file)
-    file.close()
-else:
-    print(dir_diff_object)
+#patching
