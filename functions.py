@@ -156,3 +156,32 @@ def generate_dir_diffs(base_dir, comp_dir):
     dir_diff_object = {"dirs_to_build": dirs_to_build, "dirs_to_delete": dirs_to_delete, "dir_diffs": same_dir_diffs}
 
     return {"files": file_diff_object, "dirs": dir_diff_object}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def build(dir, build_objects):
+    for build_object in build_objects:
+        if build_object["category"] == "file":
+            name = build_object['name']
+            bash_execute(f"touch {dir}/{name}")
+            file = open(f"{dir}/{name}", "w")
+            file.write( build_object["content"] )
+            file.close()

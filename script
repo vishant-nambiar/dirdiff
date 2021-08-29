@@ -3,6 +3,7 @@
 import sys
 import subprocess
 import json
+import os
 from functions import *
 
 
@@ -53,3 +54,24 @@ if sys.argv[1] == "patch":
     patchfile_stream = open(patchfile, "r")
     dir_diff_object = json.load(patchfile_stream)
     patchfile_stream.close()
+
+
+    def dir_patch(dir, dir_diff_object):
+        
+        file_object = dir_diff_object["files"]
+        
+        for file in file_object["files_to_delete"]:
+            bash_execute(f"rm {dir}/{file}")
+        
+        build(dir, file_object["files_to_add"])
+
+        bash_execute(f"touch {dir}/temppatch8132")
+        for file, diff in file_object["file_diffs"]:
+            temp_patch_file = open(f"{dir}/temppatch8132", "w")
+            temp_patch_file.write(diff)
+            temp_patch_file.close()
+            bash_execute(f"patch {dir}/{file} {dir}/temppatch8132")
+        bash_execute(f"rm {dir}/temppatch8132")
+
+        
+    dir_patch(sys.argv[2], dir_diff_object)
