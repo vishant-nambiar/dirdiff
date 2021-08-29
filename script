@@ -73,5 +73,17 @@ if sys.argv[1] == "patch":
             bash_execute(f"patch {dir}/{file} {dir}/temppatch8132")
         bash_execute(f"rm {dir}/temppatch8132")
 
+
+        
+        dir_object = dir_diff_object["dirs"]
+
+        for directory in dir_object["dirs_to_delete"]:
+            bash_execute(f"rm -r {dir}/{directory}")
+        
+        build( dir, dir_object["dirs_to_build"] )
+
+        # for directory_diff_object in dir_object["dir_diffs"]:
+        #     dir_patch( f"{dir}/{")
+
         
     dir_patch(sys.argv[2], dir_diff_object)

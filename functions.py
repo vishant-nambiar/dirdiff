@@ -185,3 +185,8 @@ def build(dir, build_objects):
             file = open(f"{dir}/{name}", "w")
             file.write( build_object["content"] )
             file.close()
+        
+        if build_object["category"] == "directory":
+            name = build_object["name"]
+            bash_execute(f"mkdir {dir}/{name}")
+            build( f"{dir}/{name}", build_object["content"] )
