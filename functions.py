@@ -10,8 +10,7 @@ def bash_execute(commands):
 
 
 
-#Diffing section
-
+#Diffing supporting functions
 
 
 
@@ -26,8 +25,6 @@ def generate_file_list(dir):
 
 
 
-
-
 #generates array of directories
 def generate_dir_list(dir):
     data = bash_execute(f'ls -pa {dir}/').split('\n')[2:-1]
@@ -36,7 +33,6 @@ def generate_dir_list(dir):
         if name[-1] == '/':
             dir_list.append(name[:-1])
     return dir_list
-
 
 
 
@@ -81,13 +77,6 @@ def generate_file_diffs( base_dir, comp_dir ):
 
 
 
-
-
-
-
-
-
-
 #generates instructions to build dir from scratch
 #returns an array of build objects
 def dir_build_instructions(dir):
@@ -108,16 +97,6 @@ def dir_build_instructions(dir):
         content = dir_build_instructions(f"{dir}/{inner_dir}")
         store.append( {"name": name, "category": category, "content": content} )
     return store
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -169,13 +148,7 @@ def generate_dir_diffs(base_dir, comp_dir):
 
 
 
-#Patching section
-
-
-
-
-
-
+#Patching supporting functions
 
 
 def build(dir, build_objects):
@@ -191,14 +164,6 @@ def build(dir, build_objects):
             name = build_object["name"]
             bash_execute(f"mkdir {dir}/{name}")
             build( f"{dir}/{name}", build_object["content"] )
-
-
-
-
-
-
-
-
 
 
 
