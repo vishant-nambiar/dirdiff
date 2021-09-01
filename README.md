@@ -25,17 +25,11 @@ The tool has been written as a script to be run in the terminal. Simply run the 
  - `patch_file`: **If diffing**, this is the file that where the generated diffs would be stored. If not provided, the diffs would be printed in the terminal. **If patching**, this is a mandatory parameter as the patch instructions would be taken from the file provided.
  
 For example, if we were diffing A with respect to B, the command would be:
-
 `./dirdiff diff A B`
-
 This would print the diff object onto the terminal. To store it in a file, say `file.patch`, we would have to run:
-
 `./dirdiff diff A B file.patch`
-
 Finally, after we've generated the diffs, we can patch the base directory (A in this case), by doing:
-
 `./dirdiff patch A file.patch`
-
 The result would be that A has been made identical to B.
 
 ## Reusable components
@@ -54,3 +48,7 @@ The result would be that A has been made identical to B.
 
 Dirdiff currently does not work for binary files. This will be fixed soon.
 If you get problems, let me know by raising an issue.
+
+## Licensing
+--------------------------------------------
+This project is covered under the [GNU General Public License V3](https://www.gnu.org/licenses/gpl-3.0.en.html).
