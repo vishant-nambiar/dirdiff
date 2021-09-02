@@ -14,7 +14,7 @@ setup(
   author = 'Vishant Nambiar',                  
   author_email = 'vishantnambiar@gmail.com',     
   url = 'https://github.com/vishant-nambiar/dirdiff',  
-  download_url = 'https://github.com/vishant-nambiar/dirdiff/archive/refs/tags/1.0.tar.gz',   
+  download_url = 'https://github.com/vishant-nambiar/dirdiff/archive/refs/tags/1.1.tar.gz',   
   keywords = ['diff', 'patch', 'directories', 'folders', 'bash'],   
   classifiers=[
     'Development Status :: 4 - Beta',      
