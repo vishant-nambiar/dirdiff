@@ -2,37 +2,30 @@
 
 -----------------------------------------------------------------
 
-**Note**: The following is documentation for dirdiff as an executable **script**, which is the file `script` in the repo. If you want to know about the python package, go to [README2](https://github.com/vishant-nambiar/dirdiff/blob/main/README2.md)
+**Note**:The following is documentation on the dirdiff python **package**. If you want to know about dirdiff as an executable script, go to [README2](https://github.com/vishant-nambiar/dirdiff/blob/main/README2.md). 
 
-A python script to diff and patch directories. It's similar to the diff and patch tools in \*nix command lines, but for **directories**. I wrote it because I couldn't find a simple hassle free tool to store the differences between two directories that can be used as instructions to convert one directory to another.
+A python utility to diff and patch directories. It's similar to the diff and patch tools in \*nix command lines, but for **directories**. I wrote it because I couldn't find a simple hassle free tool to store the differences between two directories that can be used as instructions to convert one directory to another.
 
 ## How it works
 
 ------------------------------
 
 There are two main actions you can perform with dirdiff: **diffing** and **patching**.
-If you have two directories A and B, you can diff A with respect to B. This creates a diff object in Json format, which is essentially an object of instructions that can be used to convert A to B. These instructions can be printed on the terminal or stored in a file.
+If you have two directories A and B, you can diff A with respect to B. This creates a diff dictionary, which is essentially an object of instructions that can be used to convert A to B. Here, A would be called the base directory and B would be called the compare directory.
 When you have generated the diffs required to convert A to B, you can use these diffs to patch A whenever you want. The instructions in the diff object would be applied to A, and after patching, A would be identical to B. This is of course valid for a series of files, i.e if you are working on a file and save it as A, then B, then C, you could diff A and B, then B and C, finally you could combine these diffs to get instructions to convert A to C.
 
 ## How to use it
 
 ------------------------------------------------
 
-**Note:** Python3 is required to run dirdiff. It is designed to run on *nix systems with bash. I believe it may work with WSL for Windows, but I haven't verified it.
+**Note**: Python3 is required to run dirdiff. dirdiff is designed to run on *nix systems with bash. It may work for Windows with WSL, but I haven't verified it.
 
-The tool has been written as a script to be run in the terminal. Simply run the `script` script with the neccessary arguments. These are, in order:
- - `command`: The values for this are `diff` and `patch`, based on what you're trying to do.
- - `base_directory`: The relative or absolute path of the base directory we would like to diff or patch. In the example above, the base directory would've been A.
- - `compare_directory`: This must be supplied only when diffing. This is the path to the directory with respect to which we would like to generate diffs for the base directory. In the example above it would've been B.
- - `patch_file`: **If diffing**, this is the file that where the generated diffs would be stored. If not provided, the diffs would be printed in the terminal. **If patching**, this is a mandatory parameter as the patch instructions would be taken from the file provided.
- 
-For example, if we were diffing A with respect to B, the command would be:
-`./script diff A B`
-This would print the diff object onto the terminal. To store it in a file, say `file.patch`, we would have to run:
-`./script diff A B file.patch`
-Finally, after we've generated the diffs, we can patch the base directory (A in this case), by doing:
-`./script patch A file.patch`
-The result would be that A has been made identical to B.
+The two major actions you can perform are directory diffing and patching. Accordingly these two functions have been exposed:
+- `generate_dir_diffs`: Takes two mandatory arguments, `base_dir`, which is the path to the base directory, and `comp_dir`, which is the path to the directory with which the diffs must be generated. The paths can be relative or absolute. Returns a dictionary `diff_object`, which contains instructions to convert the base directory to the compare directory. This can be stored or passed to the `dir_patch` function to patch the base directory.
+- `dir_patch`: Takes two mandatory arguments. The first is the path to the base directory to be patched, the next is the diff dictionary to be applied to the directory.
+Examples:
+`diff_dict = generate_dir_diffs( base_dir_path, comp_dir_path )`
+`dir_patch( base_dir_path, diff_dict )`
 
 ## Reusable components
 
@@ -44,14 +37,14 @@ The result would be that A has been made identical to B.
 - function `dir_patch`: Takes a directory path and a diff object, and patches that directory according to the instructions in the diff object.
 
 ## Dependencies
-------------------------------------------------------------
-dirdiff uses only python standard libraries, specifically sys, json and subprocess in this script.
+------------------------------------------------
+dirdiff uses only a python standard library, specifically subprocess.
 
 ## Known issues
 
 ------------------------------------------
 
-Dirdiff currently does not work for binary files. This will be fixed soon.
+dirdiff currently does not work for binary files. This will be fixed soon.
 If you get problems, let me know by raising an issue.
 
 ## Licensing
