@@ -1,0 +1,10 @@
+README.md
+setup.cfg
+setup.py
+dirdiff/__init__.py
+dirdiff/dirdiff.py
+dirdiff.egg-info/PKG-INFO
+dirdiff.egg-info/SOURCES.txt
+dirdiff.egg-info/dependency_links.txt
+dirdiff.egg-info/requires.txt
+dirdiff.egg-info/top_level.txt
