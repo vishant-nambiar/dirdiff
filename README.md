@@ -2,6 +2,7 @@
 
 -----------------------------------------------------------------
 
+
 A python script to diff and patch directories. It's similar to the diff and patch tools in \*nix command lines, but for **directories**. I wrote it because I couldn't find a simple hassle free tool to store the differences between two directories that can be used as instructions to convert one directory to another.
 
 ## How it works
@@ -18,18 +19,18 @@ When you have generated the diffs required to convert A to B, you can use these 
 
 **Note:** Python3 is required to run dirdiff. Also I've tested it on Linux and MacOS so far, as it runs only on *nix systems. I believe it may work with WSL for Windows, but I haven't verified it.
 
-The tool has been written as a script to be run in the terminal. Simply run the `dirdiff` script with the neccessary arguments. These are, in order:
+The tool has been written as a script to be run in the terminal. Simply run the `script` script with the neccessary arguments. These are, in order:
  - `command`: The values for this are `diff` and `patch`, based on what you're trying to do.
  - `base_directory`: The relative or absolute path of the base directory we would like to diff or patch. In the example above, the base directory would've been A.
  - `compare_directory`: This must be supplied only when diffing. This is the path to the directory with respect to which we would like to generate diffs for the base directory. In the example above it would've been B.
  - `patch_file`: **If diffing**, this is the file that where the generated diffs would be stored. If not provided, the diffs would be printed in the terminal. **If patching**, this is a mandatory parameter as the patch instructions would be taken from the file provided.
  
 For example, if we were diffing A with respect to B, the command would be:
-`./dirdiff diff A B`
+`./script diff A B`
 This would print the diff object onto the terminal. To store it in a file, say `file.patch`, we would have to run:
-`./dirdiff diff A B file.patch`
+`./script diff A B file.patch`
 Finally, after we've generated the diffs, we can patch the base directory (A in this case), by doing:
-`./dirdiff patch A file.patch`
+`./script patch A file.patch`
 The result would be that A has been made identical to B.
 
 ## Reusable components
