@@ -6,7 +6,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 setup(
   name = 'dirdiff',        
   packages = ['dirdiff'],   
-  version = '1.0',     
+  version = '1.1',     
   license='gpl-3.0',        
   description = 'A utility to diff and patch entire directories, similiar to the GNU diff and patch for files.',
   long_description=long_description,
@@ -16,9 +16,6 @@ setup(
   url = 'https://github.com/vishant-nambiar/dirdiff',  
   download_url = 'https://github.com/vishant-nambiar/dirdiff/archive/refs/tags/1.0.tar.gz',   
   keywords = ['diff', 'patch', 'directories', 'folders', 'bash'],   
-  install_requires=[            
-          'subprocess',
-      ],
   classifiers=[
     'Development Status :: 4 - Beta',      
     'Intended Audience :: Developers',     
