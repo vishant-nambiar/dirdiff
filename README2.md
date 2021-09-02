@@ -2,6 +2,8 @@
 
 -----------------------------------------------------------------
 
+**Note**:The following is documentation on the dirdiff python **package**. If you want to know about dirdiff as an executable script, go to [README](https://github.com/vishant-nambiar/dirdiff).
+
 A python utility to diff and patch directories. It's similar to the diff and patch tools in \*nix command lines, but for **directories**. I wrote it because I couldn't find a simple hassle free tool to store the differences between two directories that can be used as instructions to convert one directory to another.
 
 ## How it works
