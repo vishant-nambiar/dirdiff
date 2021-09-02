@@ -18,6 +18,8 @@ When you have generated the diffs required to convert A to B, you can use these 
 
 ------------------------------------------------
 
+**Note**: Python3 is required to run dirdiff. dirdiff is designed to run on *nix systems with bash. It may work for Windows with WSL, but I haven't verified it.
+
 The two major actions you can perform are directory diffing and patching. Accordingly these two functions have been exposed:
 - `generate_dir_diffs`: Takes two mandatory arguments, `base_dir`, which is the path to the base directory, and `comp_dir`, which is the path to the directory with which the diffs must be generated. The paths can be relative or absolute. Returns a dictionary `diff_object`, which contains instructions to convert the base directory to the compare directory. This can be stored or passed to the `dir_patch` function to patch the base directory.
 - `dir_patch`: Takes two mandatory arguments. The first is the path to the base directory to be patched, the next is the diff dictionary to be applied to the directory.

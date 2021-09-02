@@ -18,7 +18,7 @@ When you have generated the diffs required to convert A to B, you can use these 
 
 ------------------------------------------------
 
-**Note:** Python3 is required to run dirdiff. Also I've tested it on Linux and MacOS so far, as it runs only on *nix systems. I believe it may work with WSL for Windows, but I haven't verified it.
+**Note:** Python3 is required to run dirdiff. It is designed to run on *nix systems with bash. I believe it may work with WSL for Windows, but I haven't verified it.
 
 The tool has been written as a script to be run in the terminal. Simply run the `script` script with the neccessary arguments. These are, in order:
  - `command`: The values for this are `diff` and `patch`, based on what you're trying to do.
