@@ -17,7 +17,7 @@ setup(
     'Development Status :: 4 - Beta',      
     'Intended Audience :: Developers',     
     'Topic :: Software Development :: Build Tools',
-    'License :: OSI Approved :: GNU General Public License v3.0',  
+    'License :: OSI Approved :: gpl-3.0',  
     'Programming Language :: Python :: 3',     
   ],
 )
