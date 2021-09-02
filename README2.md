@@ -34,6 +34,9 @@ Examples:
 - function `generate_file_diffs`: Generates file diff objects (a subset of the diff object) which contains instructions to patch only the files in the base directory from the compare directory, ignoring the directories inside them.
 - function `dir_patch`: Takes a directory path and a diff object, and patches that directory according to the instructions in the diff object.
 
+## Dependencies
+------------------------------------------------
+dirdiff uses only a python standard library, specifically subprocess.
 
 ## Known issues
 
