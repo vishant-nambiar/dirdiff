@@ -2,9 +2,9 @@
 
 -----------------------------------------------------------------
 
-**Note**: The following is documentation for dirdiff as an executable **script**, which is the file `script` in the repo. If you want to know about the python package, go to [README](https://github.com/vishant-nambiar/dirdiff)
+**Note**: The following is documentation for dirdiff as a **CLI** or executable **script**, which is the file `script` in the repo. If you want to know about the python package, go to [README](https://github.com/vishant-nambiar/dirdiff)
 
-A python script to diff and patch directories. It's similar to the diff and patch tools in \*nix command lines, but for **directories**. I wrote it because I couldn't find a simple hassle free tool to store the differences between two directories that can be used as instructions to convert one directory to another.
+A python CLI to diff and patch directories. It's similar to the diff and patch tools in \*nix command lines, but for **directories**. I wrote it because I couldn't find a simple hassle free tool to store the differences between two directories that can be used as instructions to convert one directory to another.
 
 ## How it works
 
@@ -20,7 +20,8 @@ When you have generated the diffs required to convert A to B, you can use these 
 
 **Note:** Python3 is required to run dirdiff. It is designed to run on *nix systems with bash. I believe it may work with WSL for Windows, but I haven't verified it.
 
-The tool has been written as a script to be run in the terminal. Simply run the `script` script with the neccessary arguments. These are, in order:
+The tool has been written as a script to be run in the terminal. Simply run the `script` script with the neccessary arguments. You can also run it as a global CLI by pasting `script` in your `bin` directory. If doing so, it is recommended to rename `script` to something else, preferably `dirdiff`. 
+The commands are, in order:
  - `command`: The values for this are `diff` and `patch`, based on what you're trying to do.
  - `base_directory`: The relative or absolute path of the base directory we would like to diff or patch. In the example above, the base directory would've been A.
  - `compare_directory`: This must be supplied only when diffing. This is the path to the directory with respect to which we would like to generate diffs for the base directory. In the example above it would've been B.
@@ -33,6 +34,8 @@ This would print the diff object onto the terminal. To store it in a file, say `
 Finally, after we've generated the diffs, we can patch the base directory (A in this case), by doing:
 `./script patch A file.patch`
 The result would be that A has been made identical to B.
+
+*If you're using dirdiff as a global CLI from your `bin`, the above commands are the same, just replace `./script` with the name of the script in your `bin`.*
 
 ## Reusable components
 
